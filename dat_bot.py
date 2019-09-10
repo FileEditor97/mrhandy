@@ -174,4 +174,4 @@ async def on_member_remove(member):
 #SECRET CODE!!!
 bot.run(
 	"Mzk3NDYxMDcyMzQyNDE3NDA4.DTANYA.Plc3vlVO3b2huY9gUqkizvjDyUg"
-)
+) 
