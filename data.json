@@ -1,0 +1,29 @@
+{
+    "sudo_id": "369062521719488524",
+    "servers_list": [
+        {
+            "shop": [
+                {
+                    "price": 120,
+                    "name": "thing"
+                },
+                {
+                    "price": 100,
+                    "name": "test"
+                }
+            ],
+            "server_id": "393070881821294592",
+            "server": {
+                "log_channel_id": null,
+                "prefix": "!",
+                "mods_role_id": null,
+                "welcome_channel_id": null,
+                "admin_role_id": null,
+                "owner_id": "369062521719488524"
+            }
+        },
+        {
+            "name": "green"
+        }
+    ]
+}
