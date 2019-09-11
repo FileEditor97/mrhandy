@@ -2,7 +2,7 @@
 discord bot by Greenlord, on test
 '''
 
-import asyncio 	#time/date
+import asyncio 	#syncing
 import json     #work with tables
 import logging  #logging stuf
 import discord  #com. with discord
@@ -65,7 +65,7 @@ async def on_guild_join(guild): #when bot join guild
 	print("---------------------------\n")
 	#logging
 	logger.info("Bot was invited in '{0.name}'[{0.id}]. Owner-{0.owner.name}".format(guild))
-	#create server data in json_things/data.json
+	#create server data in data.json
 	with open("json/data.json", "r+") as jsonFile:
 		data = json.load(jsonFile) #data as table
 		template["guild_id"] = guild.id
@@ -90,10 +90,25 @@ async def on_guild_remove(guild): #when bot left guild
 	print("Created at:", guild.created_at.strftime('%d/%m/%Y %H:%M'))
 	print("-Bot info")
 	#print("Joined at:", guild.me.joined_at.strftime('%d/%m/%Y %H:%M'))
-	print("Roles:", list(set(guild.me.roles)))
+	#print("Roles:", list(set(guild.me.roles)))
 	print("-----------------------\n")
+	#logging
 	logger.info("Bot left guild '{0.name}'[{0.id}]. Owner-{1.name}[{1.id}]".format(guild, guild.owner))
-
+	#delete server data from json
+	with open("json/data.json", "r+") as jsonFile:
+		data = json.load(jsonFile)
+		for x in range(len(data["guilds_list"])):
+			print(x,'-ok')
+			if guild.id == data["guilds_list"][x]["guild_id"]:
+				obj = data["guilds_list"] #!
+				obj.pop(x) #!
+				jsonFile.seek(0)
+				json.dump(data, jsonFile, indent=4)
+				jsonFile.truncate()
+				jsonFile.close
+				logger.debug("Server '{0.name}'[{0.id}] removed to 'data.json'!".format(guild))
+				break
+		logger.error("There is no any guild with given ID - {0.id}!".format(guild))	
 
 @bot.event
 async def on_member_join(member):
@@ -117,7 +132,7 @@ async def on_member_join(member):
 		data = json.load(jsonFile)
 		#searches for guild with same id
 		for x in range(len(data["guilds_list"])):
-			if guild.id == data["guilds_list"][x]["guild_id"]:
+			if guild.id == data["guilds_list"][x+1]["guild_id"]:
 				#checks welcome channel id existence
 				if data["guilds_list"][x]["guild"]["welcome_channel_id"] is None:
 					#contact owner and logging
@@ -174,4 +189,4 @@ async def on_member_remove(member):
 #SECRET CODE!!!
 bot.run(
 	"***"
-) 
+)
