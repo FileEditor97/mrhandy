@@ -108,7 +108,8 @@ async def on_guild_remove(guild): #when bot left guild
 				jsonFile.close
 				logger.debug("Server '{0.name}'[{0.id}] removed to 'data.json'!".format(guild))
 				break
-		logger.error("There is no any guild with given ID - {0.id}!".format(guild))	
+		logger.error("There is no any guild with given ID - {0.id}!".format(guild))
+	jsonFile.close
 
 @bot.event
 async def on_member_join(member):
@@ -119,7 +120,7 @@ async def on_member_join(member):
 	embed = discord.Embed(colour=discord.Colour.gold(), description="***'{}' join this server!***".format(member.name))
 
 	embed.set_thumbnail(url=member.avatar_url)
-	embed.set_footer(text="Notification by @GreenLord", icon_url="https://cdn.discordapp.com/app-icons/397461072342417408/80b3d35bd5a974d72a833f25cd7e8e07.png")
+	embed.set_footer(text="NotiNonefication by @GreenLord", icon_url="https://cdn.discordapp.com/app-icons/397461072342417408/80b3d35bd5a974d72a833f25cd7e8e07.png")
 
 	embed.add_field(name="Name", value=member.name, inline=True)
 	embed.add_field(name="ID", value=member.id, inline=True)
@@ -185,6 +186,13 @@ async def on_member_remove(member):
 					channel = bot.get_channel(data["guilds_list"][x]["guild"]["welcome_channel_id"])
 					await channel.send(embed=embed)
 					logger.info("{0.name}[{0.id}] left '{1.name}' server!".format(member, guild))
+	jsonFile.close
+
+@bot.event
+async def on_message(message):
+	'''Ping test'''
+	#Sudo only
+	
 
 #SECRET CODE!!!
 bot.run(
