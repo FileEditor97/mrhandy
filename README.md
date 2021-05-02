@@ -1,2 +1,2 @@
 # MrHandy
-Discord bot wroten on python with json help
+Discord bot written on python with json help
